@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knight Puzzle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2>Goal: <span>Use Knight to Capture All Black 4 Pawns</span></h2>
+
+    <h4>P = Pawn, B = Bishop, R = Rook, K = Knight, Diagonal Lines = Blocked Square</h4>
+  
+    <div class="board">
+      <!-- Labels -->
+      <div class="empty"></div>
+      <div class="file">a</div>
+      <div class="file">b</div>
+      <div class="file">c</div>
+      <div class="file">d</div>
+  
+      <!-- Row 5 -->
+      <div class="rank">5</div>
+      <div class="square pawn-black">P</div>
+      <div class="square pawn-black">P</div>
+      <div class="square pawn-black">P</div>
+      <div class="square pawn-black">P</div>
+  
+      <!-- Row 4 -->
+      <div class="rank">4</div>
+      <div class="square blocked"></div>
+      <div class="square blocked"></div>
+      <div class="square blocked"></div>
+      <div class="square blocked"></div>
+  
+      <!-- Row 3 -->
+      <div class="rank">3</div>
+      <div class="square bishop">B</div>
+      <div class="square bishop">B</div>
+      <div class="square bishop">B</div>
+      <div class="square bishop">B</div>
+  
+      <!-- Row 2 -->
+      <div class="rank">2</div>
+      <div class="square rook">R</div>
+      <div class="square rook">R</div>
+      <div class="square rook">R</div>
+      <div class="square rook">R</div>
+  
+      <!-- Row 1 -->
+      <div class="rank">1</div>
+      <div class="square pawn-white">P</div>
+      <div class="square pawn-white">P</div>
+      <div class="square pawn-white">P</div>
+      <div class="square empty"></div>
+  
+      <!-- Row 0 -->
+      <div class="rank">0</div>
+      <div class="square blocked"></div>
+      <div class="square blocked"></div>
+      <div class="square blocked"></div>
+      <div class="square knight">K</div>
+
+    </div>
+
+   <div class="nextcontain">
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          text-align: center;
+          padding: 20px;
+        }
+        .board {
+          display: grid;
+          grid-template-columns: 30px repeat(4, 50px);
+          grid-template-rows: repeat(7, 50px);
+          margin: 20px auto;
+          border: 2px solid #000;
+        }
+        .square {
+          border: 1px solid #000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .square input {
+          width: 90%;
+          height: 80%;
+          text-align: center;
+          font-size: 14px;
+          border: none;
+          outline: none;
+        }
+        button {
+          margin-top: 15px;
+          padding: 10px 20px;
+          font-size: 16px;
+          cursor: pointer;
+        }
+        #result {
+          font-weight: bold;
+          margin-top: 10px;
+        }
+      </style>
+    </head>
+    <body>
+    
+    <h2>Answer Space</h2>
+    <h4>Instructions: Type in single letter caps 
+        representing the piece</h4>
+        <span>EX: Pawn = "P", Blank Space = (Leave Blank),
+            Blocked Space = "X"
+        </span>
+    
+    <div class="board" id="board">
+      <div></div> <div>a</div> <div>b</div> <div>c</div> <div>d</div>
+    
+      <!-- Row 5 -->
+      <div>5</div> <div><input id="a5"></div> <div><input id="b5"></div> <div><input id="c5"></div> <div><input id="d5"></div>
+      <!-- Row 4 -->
+      <div>4</div> <div><input id="a4"></div> <div><input id="b4"></div> <div><input id="c4"></div> <div><input id="d4"></div>
+      <!-- Row 3 -->
+      <div>3</div> <div><input id="a3"></div> <div><input id="b3"></div> <div><input id="c3"></div> <div><input id="d3"></div>
+      <!-- Row 2 -->
+      <div>2</div> <div><input id="a2"></div> <div><input id="b2"></div> <div><input id="c2"></div> <div><input id="d2"></div>
+      <!-- Row 1 -->
+      <div>1</div> <div><input id="a1"></div> <div><input id="b1"></div> <div><input id="c1"></div> <div><input id="d1"></div>
+      <!-- Row 0 -->
+      <div>0</div> <div><input id="a0"></div> <div><input id="b0"></div> <div><input id="c0"></div> <div><input id="d0"></div>
+    </div>
+    
+    <!-- Position Checker -->
+    <button onclick="checkPositions()">Check Position</button>
+    
+   <h5>Assume final position has the knight on a5 and all black pawn sqaures all blank for they have been eaten</h5>
+
+    <p id="result"></p>
+    
+    <script>
+      function checkPositions() {
+        const goalPositions = {
+          // Row 5 (Black Pawns)
+          "a5": "K", "b5": "", "c5": "", "d5": "",
+          // Row 4 (Blocked)
+          "a4": "X", "b4": "X", "c4": "X", "d4": "X",
+          // Row 3 (Bishops)
+          "a3": "B", "b3": "", "c3": "B", "d3": "R",
+          // Row 2 (Rooks)
+          "a2": "R", "b2": "P", "c2": "B", "d2": "",
+          // Row 1 (White Pawns)
+          "a1": "P", "b1": "B", "c1": "P", "d1": "R",
+          // Row 0 (Blocked + Knight)
+          "a0": "X", "b0": "X", "c0": "X", "d0": "R"
+        };
+    
+        let correct = true;
+        for (let square in goalPositions) {
+          const userValue = document.getElementById(square).value.trim().toUpperCase();
+          if (userValue !== goalPositions[square]) {
+            correct = false;
+            break;
+          }
+        }
+    
+        document.getElementById("result").textContent = 
+          correct ? "✅ Correct position!" : "❌ Incorrect position. Try again.";
+      }
+    </script>
+   </div>
+  
+  </body>
+</html>

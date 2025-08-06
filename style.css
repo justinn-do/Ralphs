@@ -1,0 +1,69 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #fff;
+    padding: 20px;
+  }
+  
+  h2 {
+    background: yellow;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .board {
+    display: grid;
+    grid-template-columns: 30px repeat(4, 50px);
+    grid-template-rows: repeat(7, 50px);
+    margin: 20px auto;
+    border: 2px solid #000;
+  }
+
+
+  
+  .file, .rank, .empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+  
+  .square {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #000;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .pawn-black {
+    background: #f2f2f2;
+  }
+  
+  .blocked {
+    background: repeating-linear-gradient(
+      45deg,
+      black,
+      black 5px,
+      white 5px,
+      white 10px
+    );
+  }
+  
+  .bishop {
+    color: red;
+  }
+  
+  .rook {
+    color: red;
+  }
+  
+  .pawn-white {
+    color: red;
+  }
+  
+  .knight {
+    color: red;
+  }
