@@ -1,12 +1,13 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background: #fff;
+    background: rgb(118, 170, 142);
     padding: 20px;
+    color: white;
   }
   
   h2 {
-    background: yellow;
+    
     display: inline-block;
     padding: 5px 10px;
     border-radius: 5px;

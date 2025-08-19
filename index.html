@@ -163,8 +163,12 @@
           }
         }
     
-        document.getElementById("result").textContent = 
-          correct ? "✅ Correct position!" : "❌ Incorrect position. Try again.";
+        if (correct) {
+    // ✅ Redirect to new page
+    window.location.href = "nextpage.html"; // change this to your desired URL
+  } else {
+    document.getElementById("result").textContent = "❌ Incorrect position. Try again.";
+  }
       }
     </script>
    </div>
